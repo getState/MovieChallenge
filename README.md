@@ -1,7 +1,7 @@
 # MovieChallenge
- 
+
 - [v] IMDB Link
-- [ ] Tabs inside of Movie / Show Details (YT Videos, Production Company & Countries)
-- [ ] Collections Link
-- [ ] /collections Route
+- [v] Tabs inside of Movie / Show Details (YT Videos, Production Company & Countries)
+- [v] Collections Link
+- [v] /collections Route
 - [ ] On TV Show, show seasons and creators

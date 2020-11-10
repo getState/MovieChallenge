@@ -35,6 +35,7 @@ export default class extends React.Component {
         console.log(result);
       } else {
         ({ data: result } = await tvApi.showDetail(parsedId));
+        console.log(result);
       }
     } catch {
       this.setState({ error: "Can't find anything." });
@@ -44,7 +45,7 @@ export default class extends React.Component {
   }
 
   render() {
-    const { result, error, loading } = this.state;
-    return <DetailPresenter result={result} error={error} loading={loading} />;
+    const { result, error, loading, isMovie } = this.state;
+    return <DetailPresenter result={result} error={error} loading={loading} isMovie={isMovie}/>;
   }
 }

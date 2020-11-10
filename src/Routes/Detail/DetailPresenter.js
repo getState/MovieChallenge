@@ -87,8 +87,15 @@ const SLink = styled(Link)`
   display: block;
   font-size:16px;
   padding:5px;
+  margin-left:10px;
 `;
-const DetailPresenter = ({ result, loading, error }) =>
+const Text = styled.div`
+  margin-bottom:10px;
+`;
+const NoCollection = styled.div`
+  height: 25%;
+`
+const DetailPresenter = ({ result, loading, error, isMovie }) =>
   loading ? (
     <>
       <Helmet>
@@ -143,19 +150,43 @@ const DetailPresenter = ({ result, loading, error }) =>
             </Item>
             
           </ItemContainer>
+          {isMovie ?
+            <div>
+              <Text>
+                  <Item>Company: {result.production_companies.map(element=>`${element.name} / `)}</Item>
+              </Text>
+              <Text>
+                  <Item>Countries: {result.production_countries.map(element=>`${element.name} / `)}</Item>
+              </Text>  
+            </div>
+          : 
+            <div>
+              <Text>
+                <Item>Seasons: {result.seasons.map(element=>`${element.name} / `)}</Item>
+              </Text>
+              <Text>
+                  <Item>Creators: {result.created_by.map(element=>`${element.name} / `)}</Item>
+              </Text>  
+            </div>}
           
           <Overview>{result.overview}</Overview>
-          <CollectionsContainer>
-            <Cover
-            bgImage={
-              result.belongs_to_collection
-                ? `https://image.tmdb.org/t/p/original${result.belongs_to_collection.poster_path}`
-                : require("../../assets/noPosterSmall.png")
-            }
-            />
-            <SLink to={`/collections/${result.belongs_to_collection.id}`}>{result.belongs_to_collection.name}</SLink>
-
-          </CollectionsContainer>
+          <iframe width="480px" height="320px" src={`https://www.youtube.com/embed/${result.videos.results[0].key}`}></iframe>
+          {result.belongs_to_collection ? 
+            <CollectionsContainer>
+              <Cover
+              bgImage={`https://image.tmdb.org/t/p/original${result.belongs_to_collection.poster_path}`}
+              />
+              <SLink to={`/collections/${result.belongs_to_collection.id}`}>Go {result.belongs_to_collection.name}!</SLink>
+            </CollectionsContainer>
+          :
+            <NoCollection>
+              <Cover
+                bgImage={require("../../assets/noPosterSmall.png")}
+              />
+              <Title>No Collections</Title>
+            </NoCollection>
+          }
+          
         </Data>
       </Content>
     </Container>
